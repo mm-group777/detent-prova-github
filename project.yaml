@@ -54,6 +54,11 @@ engine_models:
 
 # Server MCP aggiuntivi per questo progetto (si sommano a quelli di fabbrica;
 # il runner li converte nel file/formato dichiarato dall'adapter scelto)
+integrations:
+  github:
+    pr_on_block: true
+    pr_base: dev
+
 mcp: {}
 
 # Progetto adottato: la fabbrica è stata installata dentro un repository già esistente (factory adopt).

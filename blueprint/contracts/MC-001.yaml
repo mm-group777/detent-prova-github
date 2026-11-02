@@ -1,0 +1,41 @@
+schema_version: 1
+id: MC-001
+version: 1
+status: ready
+block_id: onda-1
+title: Modulo formatDuration con prova node:test
+outcome:
+  description: "La persona ottiene il modulo CommonJS src/duration.js con formatDuration e la prova test/duration.test.js eseguibile con node --test; interpretazione prudente: decimali arrotondati per difetto con Math.floor e TypeError per negativi, NaN, Infinity e tipi non numerici; nessun obiettivo del Blueprint descrive questo lavoro e OBJ-001 è il più vicino."
+alignment:
+  objectives:
+    - OBJ-001
+  acceptance:
+    - AC-001
+  domain_invariants: []
+scope:
+  includes:
+    - Modulo CommonJS src/duration.js con formatDuration
+    - Prova test/duration.test.js con almeno cinque casi e node:test
+  excludes:
+    - Modifica o rinomina di file esistenti
+    - Dipendenze npm e framework
+    - Rilascio in produzione
+architecture_impact:
+  instances: []
+  connections: []
+database_impact:
+  required: false
+  changes: []
+  migration:
+    required: false
+    backwards_compatible: true
+    destructive: false
+verification:
+  structural:
+    - node --check src/duration.js
+  integration: []
+  e2e: []
+  regression: node --test
+git:
+  branch_type: feature
+  branch: feature/modulo-duration

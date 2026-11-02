@@ -67,7 +67,7 @@ agent_policy:
 blueprint:
   revision: 1
   status: ready
-  compiled_at: 2026-11-02T23:49:56.753Z
+  compiled_at: 2026-11-02T23:52:11.247Z
   sources:
     project:
       path: blueprint/project.yaml
@@ -150,5 +150,17 @@ blueprint:
       kind: directory
       path: DESIGN
       sha256: 808df8a80c03b6f7bad9345a12dfc5e1cd0101c1ebe422f043ceb1f21973a171
-  contracts: []
-  tasks: []
+  contracts:
+    - id: MC-001
+      block_id: onda-1
+      version: 1
+      status: ready
+      path: blueprint/contracts/MC-001.yaml
+      sha256: bb476d732cffdc23d7401374b90d37898ec763868e8616178bc0e4d1282ad7b7
+  tasks:
+    - id: MC-001-T01
+      parent: MC-001
+      progress_task_id: T1.1
+      status: ready
+      path: blueprint/tasks/T1.1.yaml
+      sha256: 182f6213d8869b8e3ab1342c8116c110048ab5815959f134ec1a9077963644d6

@@ -30,7 +30,7 @@ Terminata la Genesi, l'utente registra personalmente l'impronta del piano con
 
 ## Onda 1 - Modulo slugify con la sua prova
 
-- [ ] **T1.1** Aggiunge src/slugify.js e la sua prova node:test | deps: T0.4 | verify: `node --test test/slugify.test.js`
+- [x] **T1.1** Aggiunge src/slugify.js e la sua prova node:test | deps: T0.4 | verify: `node --test test/slugify.test.js`
   - Nessun obiettivo del Blueprint descrive questo lavoro: OBJ-001 e AC-001 sono i riferimenti più vicini, non un allineamento tematico.
   - Solo file nuovi: non modificare né rinominare file esistenti, README compreso.
 

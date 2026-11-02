@@ -30,7 +30,7 @@ Terminata la Genesi, l'utente registra personalmente l'impronta del piano con
 
 ## Onda 1 - Modulo formatDuration con prova node:test
 
-- [ ] **T1.1** Aggiunge formatDuration e la sua prova | deps: T0.4 | verify: `node --test test/duration.test.js`
+- [x] **T1.1** Aggiunge formatDuration e la sua prova | deps: T0.4 | verify: `node --test test/duration.test.js`
   - Nessun obiettivo del Blueprint descrive questo lavoro; OBJ-001 è il più vicino perché riguarda il repository di prova.
   - Interpretazione prudente: Math.floor per i decimali; TypeError per negativi, NaN, Infinity e tipi non numerici.
   - Nessun rilascio pianificato in questo blocco.

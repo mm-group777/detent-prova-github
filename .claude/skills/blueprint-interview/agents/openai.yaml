@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blueprint Interview"
+  short_description: "Intervista e compila il contratto di progetto"
+  default_prompt: "Use $blueprint-interview to interview me and create or recover this project's versioned Blueprint."

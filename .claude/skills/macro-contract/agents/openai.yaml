@@ -1,0 +1,4 @@
+interface:
+  display_name: "Macro Contract"
+  short_description: "Contratti approvabili per macro-task e task"
+  default_prompt: "Use $macro-contract to create an aligned Macro Contract and Task Contracts for the next development block."

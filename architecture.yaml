@@ -1,0 +1,172 @@
+# Contratto operativo dell'intera soluzione. La Genesi lo completa e lo porta a ready.
+# Il runner lo valida prima di sviluppare e usa testing.review_suite per il collaudo E2E.
+schema_version: 1
+status: draft
+
+system:
+  name: "detent-prova-github"
+  description: Da completare durante PRD, piano e scaffold.
+  criticality: standard
+  data_classification: internal
+
+# Gli environment contengono solo riferimenti ai segreti, mai credenziali reali.
+# environments:
+#   e2e:
+#     kind: test
+#     env_files: [.env.test]
+#     variables: [PLAYWRIGHT_BASE_URL]
+#     secrets:
+#       DATABASE_URL: { source: env, reference: DATABASE_URL }
+# Le source vault/AWS/GCP/Azure vengono risolte dalle rispettive CLI; field è
+# opzionale. Il runner fallisce il preflight se file o riferimenti non esistono.
+environments: {}
+
+# setup prepara dipendenze, migrazioni e seed; start deve restituire il controllo
+# (es. docker compose up -d); stop viene eseguito anche quando il test fallisce.
+lifecycle: {}
+
+# Un'unica topologia per frontend, backend, worker, CLI, DB, cache, code ed esterni.
+# Ogni istanza interna ready ha un healthcheck. Esempio:
+# instances:
+#   web:
+#     kind: frontend
+#     technology: React
+#     path: frontend
+#     depends_on: [api]
+#     healthcheck: { type: http, url: http://127.0.0.1:3000, expected_status: 200 }
+instances: {}
+
+# Ogni depends_on deve avere una connessione e un verify reale.
+# connections:
+#   - from: web
+#     to: api
+#     protocol: http
+#     via_env: VITE_API_URL
+#     verify: curl -fsS http://127.0.0.1:8000/health
+connections: []
+
+testing:
+  # review_suite: e2e
+  suites: {}
+  #   e2e:
+  #     runner: playwright
+  #     command: npx playwright test --config=playwright.system.config.ts  # progetto adottato: --config=.factory/system-e2e/playwright.system.config.mjs
+  #     instances: [web, api, database]
+  #     environment: e2e
+  #     specs: [tests/system-e2e/main-flow.spec.ts]
+  #     journeys:
+  #       - name: main-flow
+  #         kind: system-e2e
+  #         flow: FE-FLOW-001
+  #         acceptance: [AC-001]
+  #         operations: [createAccount]
+  #         operation_statuses: { createAccount: [201] }
+  #         required_inputs: [Nome, Email, Password]
+  #         required_actions: [Registrati, Conferma codice]
+  #         expected_outcomes: [/welcome, Account creato]
+  #         spec: tests/system-e2e/main-flow.spec.ts
+  #         path: [web, api, database]
+  #         mocks: [] # solo adapter external dichiarati in instances
+  #     timeout_seconds: 600
+  #     artifacts: [.playwright/report, .playwright/results]
+
+  # Vincoli leggibili anche dal modello; i valori sono regole concise, non segreti.
+policies:
+  security: []
+  deployment: []
+  observability: []
+  operations: []
+
+# Metadati operativi strutturati: compilali quando applicabili.
+security: {}
+# In ready questa sezione è obbligatoria; usa local/none quando non applicabile.
+# infrastructure:
+#   provider: aws
+#   region: eu-central-1
+#   infrastructure_as_code: { tool: terraform, path: infra }
+#   container_runtime: docker
+#   orchestration: kubernetes
+#   networking: { ingress: nginx, tls: cert-manager, cdn: cloudfront }
+#   scaling: { autoscaling: true, min_replicas: 2, max_replicas: 20, metric: cpu }
+infrastructure: {}
+delivery: {}
+observability: {}
+operations: {}
+agent_policy:
+  allowed_actions: [ read_repository, write_source, execute_tests ]
+  forbidden_actions: [ read_secret_values, deploy_production, delete_production_data ]
+blueprint:
+  revision: 1
+  status: draft
+  compiled_at: 2026-11-02T23:42:30.853Z
+  sources:
+    project:
+      path: blueprint/project.yaml
+      sha256: e310fae567638f7a8ceda20b9bb1c6953a78568ad821094baf04a818dd69b4c1
+    objectives:
+      path: blueprint/objectives.yaml
+      sha256: cd0f06b2acbb6decaee12846e1040eb979b12f241ea57561703fc13171678014
+    domain:
+      path: blueprint/domain.yaml
+      sha256: 32e517ba38dfa580a4a0b0f29f0f4d055f40681cf763de0de5d0d288041eadaa
+    database:
+      path: blueprint/database.yaml
+      sha256: d7d8b8861081d9177f7ae48dee7e4c4b185fa74b762676e74f2985f3b21fa20a
+    backend:
+      path: blueprint/backend.yaml
+      sha256: b2e664825835e0bcf5cac61bc7a577aca95d67e76dd9931ffce2134997637c8c
+    frontend:
+      path: blueprint/frontend.yaml
+      sha256: 994e77b57a6cc70520fd6ffd0bccf1dc7d8a3cd9f6b009c8a6ab87646b923032
+    api:
+      path: blueprint/api.yaml
+      sha256: f67666e0ec7ef229c0d5384716625fd1564628fcc3f80e302cf3096e528394a0
+    acceptance:
+      path: blueprint/acceptance.yaml
+      sha256: 83a47d1f012194acfd7d36d748f4c675477e43b0739003596c33e30593542ebc
+    deployment:
+      path: blueprint/deployment.yaml
+      sha256: 31e625ece07bd6e43a97f4afc1176db305b291907ebd91d71603f88a73548094
+    security:
+      path: blueprint/security.yaml
+      sha256: a685f266b2e8e46f6dc726d2f3c39846dd39522d48a46cd6279b29175d737692
+    git:
+      path: blueprint/git.yaml
+      sha256: 7042e216be87bef2d1c2f94393d8bb3cfa1e67ab3c3f24e6c0498dc263e0f29c
+  overview:
+    main_branch: main
+    development_branch: dev
+    project_name: detent-prova-github
+    objectives: 0
+    objective_ids: []
+    objective_details: []
+    domain_entities: 0
+    domain_invariant_ids: []
+    domain_invariant_details: []
+    database_tables: 0
+    database_engine: undecided
+    database_table_names: []
+    backend_modules: []
+    frontend_routes: []
+    frontend_flows: []
+    api_contracts: []
+    acceptance_criteria: 0
+    acceptance_criterion_ids: []
+    acceptance_scenarios: []
+    deployment_environments:
+      - development
+      - test
+    deployment_contract:
+      strategy: undecided
+      rollback: undecided
+      production_approval: manual
+      observability: undecided
+    security_policies: 0
+    security_policy_details: []
+  artifacts:
+    - id: design
+      kind: directory
+      path: DESIGN
+      sha256: 808df8a80c03b6f7bad9345a12dfc5e1cd0101c1ebe422f043ceb1f21973a171
+  contracts: []
+  tasks: []

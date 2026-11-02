@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Backend Bridge"
+  short_description: "Allinea frontend, backend e contratto OpenAPI"
+  default_prompt: "Usa $bridge-frontend-backend per allineare i requisiti dati del frontend alle operazioni backend tramite OpenAPI."

@@ -1,0 +1,36 @@
+schema_version: 2
+id: T1.3
+parent: MC-001
+progress_task_id: T1.3
+status: ready
+title: Prenotazione dalla pagina al server
+objective: 'collegare la pagina all''operazione prenotaSlot tramite API_URL e provare il collegamento con un test di integrazione che avvia il server reale; il journey prenota in tests/system-e2e/prenota.spec.ts lo percorre il collaudo finale del blocco'
+workstream: integration
+interface_operations:
+  - prenotaSlot
+alignment:
+  objectives:
+    - GOAL-001
+  acceptance:
+    - AC-001
+  domain_invariants: []
+dependencies:
+  - T1.1
+  - T1.2
+change_scope:
+  allowed_paths:
+    - frontend/src/**
+    - backend/src/**
+    - tests/system-e2e/prenota.spec.ts
+  forbidden_paths:
+    - DESIGN/**
+    - architecture.yaml
+    - blueprint/**
+    - .factory/**
+    - journal.jsonl
+    - TEST-RESULTS/**
+verify:
+  command: cd frontend && npm test -- src/integration
+  evidence:
+    - test-report
+    - commit-sha

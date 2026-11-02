@@ -1,0 +1,8 @@
+import { test, expect } from './system-test';
+
+test('[journey:prenota] [T1.3] prenotazione di uno slot libero', async ({ page, system }) => {
+  await page.goto('/prenota');
+  await system.input('Slot', page.getByLabel('Slot').fill('18:00'));
+  await system.action('Prenota', page.getByRole('button', { name: 'Prenota' }).click());
+  await system.outcome('Prenotazione confermata', expect(page.getByText('Prenotazione confermata')).toBeVisible());
+});

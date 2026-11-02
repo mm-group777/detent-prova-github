@@ -1,0 +1,90 @@
+"""Test del dominio posts.
+
+Cosa testare: il contratto (status, forma della risposta) e le regole di business
+(unicita', permessi, transizioni di stato). Cosa non testare: che Pydantic validi, che
+FastAPI faccia il routing.
+"""
+
+import pytest
+from httpx import AsyncClient
+
+from src.posts.constants import ErrorCode, PostStatus
+
+pytestmark = pytest.mark.asyncio
+
+
+async def _create_post(client: AsyncClient, title: str = "Primo post") -> dict:
+    response = await client.post("/posts", json={"title": title, "body": "contenuto"})
+    assert response.status_code == 201
+    return response.json()
+
+
+async def test_create_post_returns_draft(client: AsyncClient) -> None:
+    post = await _create_post(client)
+
+    assert post["status"] == PostStatus.DRAFT
+    assert post["title"] == "Primo post"
+    # Lo stato iniziale lo decide il server, non il payload.
+
+
+async def test_duplicate_title_is_rejected(client: AsyncClient) -> None:
+    await _create_post(client, title="Titolo unico")
+
+    response = await client.post(
+        "/posts", json={"title": "Titolo unico", "body": "altro contenuto"}
+    )
+
+    assert response.status_code == 409
+    # Asserire sull'enum invece che su una stringa copiata: se il messaggio cambia,
+    # il test non si rompe per il motivo sbagliato.
+    assert response.json()["detail"] == ErrorCode.SLUG_ALREADY_EXISTS
+
+
+async def test_unknown_post_returns_404(client: AsyncClient) -> None:
+    response = await client.get("/posts/00000000-0000-0000-0000-0000000000ff")
+
+    assert response.status_code == 404
+    assert response.json()["detail"] == ErrorCode.POST_NOT_FOUND
+
+
+async def test_partial_update_keeps_other_fields(client: AsyncClient) -> None:
+    post = await _create_post(client)
+
+    response = await client.patch(f"/posts/{post['id']}", json={"title": "Rinominato"})
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["title"] == "Rinominato"
+    assert body["body"] == "contenuto"  # non azzerato dalla PATCH parziale
+
+
+async def test_publish_twice_conflicts(client: AsyncClient) -> None:
+    post = await _create_post(client)
+
+    first = await client.post(f"/posts/{post['id']}/publish")
+    second = await client.post(f"/posts/{post['id']}/publish")
+
+    assert first.status_code == 200
+    assert first.json()["status"] == PostStatus.PUBLISHED
+    assert second.status_code == 409
+
+
+async def test_delete_returns_no_content(client: AsyncClient) -> None:
+    post = await _create_post(client)
+
+    deleted = await client.delete(f"/posts/{post['id']}")
+    missing = await client.get(f"/posts/{post['id']}")
+
+    assert deleted.status_code == 204
+    assert not deleted.content  # 204 non ha corpo
+    assert missing.status_code == 404
+
+
+async def test_unknown_field_is_rejected(client: AsyncClient) -> None:
+    # extra="forbid" sugli schemi: un campo non previsto e' un errore del client,
+    # non qualcosa da ignorare in silenzio.
+    response = await client.post(
+        "/posts", json={"title": "x", "body": "y", "author_id": "spoofed"}
+    )
+
+    assert response.status_code == 422

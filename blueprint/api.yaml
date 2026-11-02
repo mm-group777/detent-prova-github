@@ -1,0 +1,7 @@
+schema_version: 1
+status: draft
+protocol: undecided
+contracts: []
+compatibility:
+  policy: undecided
+  breaking_change: human-approval

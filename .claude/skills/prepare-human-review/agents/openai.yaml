@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prepara collaudo umano"
+  short_description: "Scrive collaudi guidati e verificabili"
+  default_prompt: "Usa $prepare-human-review per scrivere una checklist di collaudo dettagliata e verificabile."

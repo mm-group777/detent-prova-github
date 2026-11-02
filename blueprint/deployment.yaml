@@ -1,0 +1,26 @@
+schema_version: 3
+status: draft
+# kind: development, test, staging o production. deploy: manual o automatic solo se serve (di default è forbidden;
+# in produzione mai automatic). secrets: solo riferimenti { source, reference }, mai valori.
+environments:
+  development:
+    kind: development
+    location: local
+  test:
+    kind: test
+    location: docker
+# Ricetta dell'ambiente (docs/BLUEPRINT.md): tools, lista di { name, check: tool | manual }, e negli ambienti development
+# e test commands con le voci install, build, test, e2e e start, ognuna { status: derived | convention | not_found, command,
+# evidence }. Il comando c'è solo con derived (serve un file che lo prova in evidence) o convention; mai valori inventati.
+tools: []
+strategy: undecided
+production_approval: manual
+rollback: undecided
+observability: undecided
+rollback_plan:
+  strategy: undecided
+  environments: []
+# Ogni host esterno di architecture.yaml e dei controlli di salute va qui, con proprietario e accesso
+# (none, read-only, read-write, admin). I jolly vanno tra virgolette: hosts: ["*.example.com"]; non sono ammessi su
+# suffissi pubblici o di hosting condiviso (*.co.uk, *.vercel.app). Con status ready il registro deve essere completo.
+external_resources: {}

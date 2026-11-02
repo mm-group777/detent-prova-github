@@ -1,0 +1,5 @@
+schema_version: 1
+status: draft
+criteria: []
+traceability: []
+test_levels: [unit, integration, structural, e2e, deployment-smoke]

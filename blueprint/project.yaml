@@ -1,0 +1,8 @@
+schema_version: 1
+revision: 1
+status: draft
+project:
+  id: "detent-prova-github"
+  name: "detent-prova-github"
+  description: Da definire tramite intervista.
+  owners: []

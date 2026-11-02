@@ -1,0 +1,5 @@
+schema_version: 1
+status: draft
+data_classification: internal
+policies: []
+secret_management: environment-references-only

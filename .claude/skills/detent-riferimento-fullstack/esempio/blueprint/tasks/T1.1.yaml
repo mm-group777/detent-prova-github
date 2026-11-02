@@ -1,0 +1,36 @@
+schema_version: 2
+id: T1.1
+parent: MC-001
+progress_task_id: T1.1
+status: ready
+title: Operazione prenotaSlot sul server
+objective: 'implementare prenotaSlot come da blueprint/interfaces/public.openapi.yaml: 201 con la prenotazione, 409 se lo slot è già occupato, con i contract test sulla stessa specifica'
+workstream: backend
+interface_operations:
+  - prenotaSlot
+alignment:
+  objectives:
+    - GOAL-001
+  acceptance:
+    - AC-001
+    - AC-002
+  domain_invariants:
+    - INV-001
+dependencies: []
+change_scope:
+  allowed_paths:
+    - backend/src/**
+    - backend/package.json
+    - backend/package-lock.json
+  forbidden_paths:
+    - DESIGN/**
+    - architecture.yaml
+    - blueprint/**
+    - .factory/**
+    - journal.jsonl
+    - TEST-RESULTS/**
+verify:
+  command: cd backend && npm test -- src/bookings
+  evidence:
+    - test-report
+    - commit-sha

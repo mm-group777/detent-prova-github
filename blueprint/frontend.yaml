@@ -1,0 +1,18 @@
+schema_version: 1
+status: draft
+technology:
+  framework: undecided
+  language: undecided
+  package_manager: undecided
+  rendering: undecided
+design_source:
+  path: DESIGN
+  fidelity: reference
+routes: []
+flows: []
+components: []
+data_requirements: []
+verification:
+  component_test: undecided
+  visual_test: undecided
+  accessibility_test: undecided

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backend Interview"
+  short_description: "Progetta moduli, interfacce e test backend"
+  default_prompt: "Use $backend-interview to define or recover the backend contract and its real integration tests."

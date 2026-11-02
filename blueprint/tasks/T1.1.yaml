@@ -1,0 +1,37 @@
+schema_version: 2
+id: MC-001-T01
+parent: MC-001
+progress_task_id: T1.1
+status: ready
+title: Aggiunge src/slugify.js e la sua prova node:test
+objective: src/slugify.js esporta slugify con module.exports e test/slugify.test.js copre titolo normale, accenti, simboli con spazi ripetuti e input vuoto; la prova nuova test/slugify.test.js fallisce senza il modulo e passa con esso.
+workstream: platform
+interface_operations: []
+alignment:
+  objectives:
+    - OBJ-001
+  acceptance:
+    - AC-001
+  domain_invariants: []
+dependencies:
+  - T0.4
+change_scope:
+  allowed_paths:
+    - src/**
+    - test/**
+    - src/slugify.js
+    - test/slugify.test.js
+  forbidden_paths:
+    - DESIGN/**
+    - architecture.yaml
+    - blueprint/**
+    - .factory/**
+    - journal.jsonl
+    - TEST-RESULTS/**
+    - procedure.yaml
+    - project.yaml
+verify:
+  command: node --test test/slugify.test.js
+  evidence:
+    - test-report
+    - commit-sha

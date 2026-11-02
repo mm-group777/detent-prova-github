@@ -1,0 +1,18 @@
+schema_version: 1
+line:
+  name: detent-prova-github
+  responsible: technical-lead
+gates:
+  plan-approval: signer
+  macro-contract-approval: signer
+  block-review: signer
+  macro-contract-integration: signer
+  dev-to-main: signer
+references:
+  profile: default
+  git_flow: blueprint
+  skill_router: factory
+environments:
+  - name: development
+    kind: development
+    gate: plan-approval

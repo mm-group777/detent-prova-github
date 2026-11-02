@@ -1,26 +1,39 @@
 schema_version: 3
-status: draft
-# kind: development, test, staging o production. deploy: manual o automatic solo se serve (di default è forbidden;
-# in produzione mai automatic). secrets: solo riferimenti { source, reference }, mai valori.
+status: ready
 environments:
   development:
     kind: development
     location: local
-  test:
-    kind: test
-    location: docker
-# Ricetta dell'ambiente (docs/BLUEPRINT.md): tools, lista di { name, check: tool | manual }, e negli ambienti development
-# e test commands con le voci install, build, test, e2e e start, ognuna { status: derived | convention | not_found, command,
-# evidence }. Il comando c'è solo con derived (serve un file che lo prova in evidence) o convention; mai valori inventati.
+    commands:
+      install:
+        status: not_found
+        evidence: []
+      build:
+        status: not_found
+        evidence: []
+      test:
+        status: convention
+        command: git status --porcelain
+        evidence: []
+      e2e:
+        status: not_found
+        evidence: []
+      start:
+        status: not_found
+        evidence: []
+    services: []
+    variables: []
 tools: []
-strategy: undecided
+strategy: none
 production_approval: manual
-rollback: undecided
-observability: undecided
+rollback: none
+observability: none
 rollback_plan:
-  strategy: undecided
+  strategy: manual
   environments: []
-# Ogni host esterno di architecture.yaml e dei controlli di salute va qui, con proprietario e accesso
-# (none, read-only, read-write, admin). I jolly vanno tra virgolette: hosts: ["*.example.com"]; non sono ammessi su
-# suffissi pubblici o di hosting condiviso (*.co.uk, *.vercel.app). Con status ready il registro deve essere completo.
-external_resources: {}
+external_resources:
+  github:
+    owner: mm-group777
+    access: read-only
+    hosts:
+      - github.com

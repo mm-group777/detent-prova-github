@@ -1,5 +1,6 @@
 schema_version: 1
-status: draft
+status: ready
 data_classification: internal
-policies: []
+policies:
+  - "Nessun segreto versionato: solo nomi di variabili e riferimenti."
 secret_management: environment-references-only

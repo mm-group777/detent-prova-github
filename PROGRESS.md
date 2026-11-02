@@ -9,10 +9,10 @@ Terminata la Genesi, l'utente registra personalmente l'impronta del piano con
 
 ## Onda 0 — Genesi (interattiva, con l'umano)
 
-- [ ] **T0.1** Intervista sull'idea → BRIEF.md (skill intake) | deps: -
-- [ ] **T0.2** PRD.md approvato dall'umano (skill prd) | deps: T0.1
-- [ ] **T0.3** Piano approvato: onde e task qui sotto (skill plan) | deps: T0.2
-- [ ] **T0.4** Scaffold: skeleton, test harness, CONTEXT.md e architecture.yaml ready (skill scaffold) | deps: T0.3 | verify: `test -f CONTEXT.md && factory architecture validate . --ready`
+- [x] **T0.1** Intervista sull'idea → BRIEF.md (skill intake) | deps: -
+- [x] **T0.2** PRD.md approvato dall'umano (skill prd) | deps: T0.1
+- [x] **T0.3** Piano approvato: onde e task qui sotto (skill plan) | deps: T0.2
+- [x] **T0.4** Scaffold: skeleton, test harness, CONTEXT.md e architecture.yaml ready (skill scaffold) | deps: T0.3 | verify: `test -f CONTEXT.md && factory architecture validate . --ready`
 
 <!-- La skill plan sostituisce questa sezione con le onde reali del progetto. -->
 <!-- Ogni onda di sviluppo deve terminare con (formato completo nella skill prepare-human-review):

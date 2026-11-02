@@ -1,0 +1,29 @@
+# PROGRESS — detent-prova-github
+
+Formato riga (contratto del runner, non deviare):
+`- [ ] **ID** Titolo | deps: ID1, ID2 | verify: ` + comando tra backtick
+Stati: `[ ]` da fare · `[/]` in corso · `[x]` fatto · `[!]` bloccato
+Dettagli in sotto-bullet senza checkbox. Mai rinumerare ID esistenti.
+Terminata la Genesi, l'utente registra personalmente l'impronta del piano con
+`factory approve-plan .`; dopo quel gate l'agente può cambiare solo lo stato dei task.
+
+## Onda 0 — Genesi (interattiva, con l'umano)
+
+- [ ] **T0.1** Intervista sull'idea → BRIEF.md (skill intake) | deps: -
+- [ ] **T0.2** PRD.md approvato dall'umano (skill prd) | deps: T0.1
+- [ ] **T0.3** Piano approvato: onde e task qui sotto (skill plan) | deps: T0.2
+- [ ] **T0.4** Scaffold: skeleton, test harness, CONTEXT.md e architecture.yaml ready (skill scaffold) | deps: T0.3 | verify: `test -f CONTEXT.md && factory architecture validate . --ready`
+
+<!-- La skill plan sostituisce questa sezione con le onde reali del progetto. -->
+<!-- Ogni onda di sviluppo deve terminare con (formato completo nella skill prepare-human-review):
+  ### Test utente
+  - [ ] **U1.1** Titolo della prova sul prodotto reale
+    - Scopo: perché serve questa prova manuale
+    - Precondizione 1: cosa preparare, spiegato a una persona non tecnica
+    - File richiesto 1: `percorso/relativo` (solo se serve)
+    - Comando 1: `comando umano` (solo se serve)
+    - Azione 1: cosa aprire, compilare o cliccare, senza passaggi impliciti
+    - Risultato atteso 1: un fatto osservabile, per esempio compare il titolo "Titolo esatto della schermata"
+    - Evidenza 1: cosa annotare o fotografare senza dati sensibili; qui va anche ciò che giudica solo una persona (bozza, layout, colori, focus)
+  I Comandi che non chiedono la persona li lancia l'agente prima di consegnare e stanno nello script e2e del blocco (skill prepare-human-review e macro-contract).
+-->

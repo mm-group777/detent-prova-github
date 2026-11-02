@@ -1,0 +1,26 @@
+// Esempio di spec di journey: nomi uguali al flow, locator dentro il contenitore, outcome con più controlli.
+// Pagine, etichette e testi sono inventati: vanno riscritti sulle viste vere del progetto.
+import { test, expect } from './system-test';
+
+test('Anagrafica clienti [journey:anagrafica]', async ({ page, system }) => {
+  await page.goto('/login');
+  await system.input('Email', page.getByLabel('Email', { exact: true }).fill('admin@example.test'));
+  await system.input('Password', page.getByLabel('Password', { exact: true }).fill('Prova-2026'));
+  await system.action('Accedi', page.getByRole('button', { name: 'Accedi' }).click());
+  // Il flow non dichiara l'accesso come outcome: controllo nudo, mai system.outcome.
+  await expect(page.getByRole('heading', { name: 'Home', exact: true })).toBeVisible();
+
+  // Il modulo sta nella pagina della sua rotta: ci si arriva dal link, non da un URL di dettaglio.
+  await page.getByRole('link', { name: 'Clienti', exact: true }).click();
+  const modulo = page.getByRole('form', { name: 'Crea cliente', exact: true });
+  await system.input('Nome cliente', modulo.getByLabel('Nome', { exact: true }).fill('Alba'));
+  await system.input('Tipo cliente', modulo.getByLabel('Tipo', { exact: true }).selectOption({ label: 'Azienda (B2B)' }));
+  await system.action('Crea cliente', modulo.getByRole('button', { name: 'Crea cliente' }).click());
+
+  // Un outcome, due controlli, fatti presenti: cella col nome esatto e valore letto sulla stessa riga.
+  const riga = page.getByRole('row').filter({ has: page.getByRole('cell', { name: 'Alba', exact: true }) });
+  await system.outcome('Cliente in elenco', Promise.all([
+    expect(riga).toHaveCount(1),
+    expect(riga.getByRole('cell').nth(1)).toHaveText('Azienda'),
+  ]));
+});

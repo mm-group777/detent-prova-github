@@ -1,0 +1,10 @@
+schema_version: 1
+status: ready
+protocol: http
+contracts:
+  - id: public-http
+    kind: openapi
+    path: blueprint/interfaces/public.openapi.yaml
+    producer: backend
+    consumers: [frontend]
+compatibility: { policy: backwards-compatible, breaking_change: human-approval }

@@ -1,0 +1,9 @@
+.playwright/
+playwright-report/
+blob-report/
+/test-results/*
+!/TEST-RESULTS/.gitkeep
+!/TEST-RESULTS/*.md
+.auth/
+.playwright-cli/
+.playwright-mcp/

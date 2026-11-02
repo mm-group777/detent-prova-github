@@ -1,0 +1,33 @@
+// src/features/projects/components/create-project-form.test.tsx
+//
+// Test di componente. La regola che tiene i test utili nel tempo: verificare
+// ciò che l'utente vede e fa, non lo stato interno. Un test che conosce i
+// dettagli implementativi si rompe a ogni refactor senza aver trovato un bug.
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { describe, expect, it, vi } from "vitest";
+
+import { CreateProjectForm } from "./create-project-form";
+
+const createProject = vi.hoisted(() => vi.fn());
+vi.mock("../api/create-project", () => ({ createProject }));
+
+describe("CreateProjectForm", () => {
+  it("mostra i campi con etichette accessibili", () => {
+    render(<CreateProjectForm />);
+    // getByLabelText fallisce se l'etichetta non è collegata al campo:
+    // il test verifica di fatto anche l'accessibilità.
+    expect(screen.getByLabelText(/nome/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /crea progetto/i })).toBeEnabled();
+  });
+
+  it("invia i dati inseriti dall'utente", async () => {
+    const user = userEvent.setup();
+    render(<CreateProjectForm />);
+
+    await user.type(screen.getByLabelText(/nome/i), "Nuovo progetto");
+    await user.click(screen.getByRole("button", { name: /crea progetto/i }));
+
+    expect(createProject).toHaveBeenCalled();
+  });
+});

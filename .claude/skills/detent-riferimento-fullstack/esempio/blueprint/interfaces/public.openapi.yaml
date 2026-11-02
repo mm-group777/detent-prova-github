@@ -1,0 +1,56 @@
+openapi: 3.0.3
+info:
+  title: Circolo padel, API pubblica
+  version: 1.0.0
+paths:
+  /bookings:
+    post:
+      operationId: prenotaSlot
+      summary: Prenota uno slot libero
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+      responses:
+        '201':
+          description: Prenotazione creata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+        '409':
+          description: Lo slot è già prenotato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    BookingRequest:
+      type: object
+      required: [slot]
+      properties:
+        slot:
+          type: string
+          description: Fascia oraria nel formato HH:MM
+    Booking:
+      type: object
+      required: [id, slot, status]
+      properties:
+        id:
+          type: string
+        slot:
+          type: string
+        status:
+          type: string
+          enum: [confermata]
+    ApiError:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+        message:
+          type: string

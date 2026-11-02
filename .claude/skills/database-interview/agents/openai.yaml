@@ -1,0 +1,4 @@
+interface:
+  display_name: "Database Interview"
+  short_description: "Progetta schema, migrazioni e test del database"
+  default_prompt: "Use $database-interview to define or recover the versioned database contract for this project."

@@ -1,0 +1,12 @@
+import { expect, test } from './fixtures';
+
+test('[TASK-ID] completa il flusso utente', async ({ page, taskData }) => {
+  await page.goto('/resource/new');
+  await page.getByLabel('Nome').fill(taskData.projectName);
+  await page.getByRole('button', { name: 'Crea' }).click();
+
+  await expect(page).toHaveURL(/\/resource\/[^/]+$/);
+  await expect(
+    page.getByRole('heading', { name: taskData.projectName }),
+  ).toBeVisible();
+});

@@ -1,0 +1,17 @@
+schema_version: 1
+status: ready
+criteria:
+  - id: AC-001
+    objective: GOAL-001
+    level: e2e
+    given: uno slot libero
+    when: il socio scrive lo slot e preme Prenota
+    then: vede il messaggio Prenotazione confermata
+  - id: AC-002
+    objective: GOAL-001
+    level: integration
+    given: uno slot già prenotato
+    when: un altro socio prova a prenotarlo
+    then: riceve lo stato 409 e la prima prenotazione resta invariata
+traceability: []
+test_levels: [unit, integration, structural, e2e, deployment-smoke]

@@ -1,0 +1,32 @@
+schema_version: 1
+status: draft
+revision: 1
+technology:
+  engine: undecided
+  version: undecided
+  extensions: []
+ownership:
+  owner: backend
+  source_of_truth_for: []
+environments:
+  development:
+    location: undecided
+    connection_env: DATABASE_URL
+connections: {}
+migrations:
+  tool: undecided
+  path: undecided
+  apply_command: undecided
+  rollback_strategy: undecided
+tables: {}
+relationships: []
+invariants: []
+access_patterns: []
+lifecycle:
+  seed_command: undecided
+  backup_command: undecided
+  restore_command: undecided
+verification:
+  schema_test: undecided
+  migration_test: undecided
+  integration_test: undecided

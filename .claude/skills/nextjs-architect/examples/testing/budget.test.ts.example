@@ -1,0 +1,52 @@
+// src/features/projects/utils/budget.test.ts
+//
+// Test unitario di logica pura: veloce, deterministico, nessun mock.
+// Sono i test che conviene scrivere per primi — costano poco e reggono nel tempo.
+import { describe, expect, it } from "vitest";
+import { isOverBudget, totalBudget } from "./budget";
+import type { Project } from "../types";
+
+function makeProject(overrides: Partial<Project> = {}): Project {
+  // Una factory invece di oggetti scritti a mano in ogni test: quando il tipo
+  // Project cambia, si aggiorna un punto solo.
+  return {
+    id: "p1",
+    name: "Progetto",
+    description: null,
+    budget: 1000,
+    status: "active",
+    ownerId: "u1",
+    createdAt: new Date("2026-01-01"),
+    updatedAt: new Date("2026-01-01"),
+    ...overrides,
+  };
+}
+
+describe("totalBudget", () => {
+  it("somma i budget dei progetti", () => {
+    expect(totalBudget([makeProject({ budget: 100 }), makeProject({ budget: 250 })])).toBe(350);
+  });
+
+  it("tratta il budget nullo come zero invece di propagare NaN", () => {
+    expect(totalBudget([makeProject({ budget: null }), makeProject({ budget: 100 })])).toBe(100);
+  });
+
+  it("restituisce 0 su lista vuota", () => {
+    expect(totalBudget([])).toBe(0);
+  });
+});
+
+describe("isOverBudget", () => {
+  it("è falso quando la spesa è esattamente pari al budget", () => {
+    // Il caso al confine è quello che nella pratica sbaglia più spesso.
+    expect(isOverBudget(makeProject({ budget: 1000 }), 1000)).toBe(false);
+  });
+
+  it("è vero quando la spesa supera il budget", () => {
+    expect(isOverBudget(makeProject({ budget: 1000 }), 1001)).toBe(true);
+  });
+
+  it("è falso quando il progetto non ha budget", () => {
+    expect(isOverBudget(makeProject({ budget: null }), 99999)).toBe(false);
+  });
+});

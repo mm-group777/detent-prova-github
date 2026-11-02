@@ -1,0 +1,8 @@
+schema_version: 1
+revision: 1
+status: ready
+project:
+  id: circolo-padel
+  name: Circolo padel
+  description: Prenotare i campi senza telefonate
+  owners: []

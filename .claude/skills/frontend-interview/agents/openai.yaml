@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Interview"
+  short_description: "Analizza DESIGN e definisce il frontend"
+  default_prompt: "Usa $frontend-interview per trasformare la bozza in DESIGN nel contratto frontend del progetto."

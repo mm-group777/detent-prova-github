@@ -1,0 +1,14 @@
+schema_version: 1
+status: ready
+technology: node
+modules:
+  - id: prenotazioni
+    description: Prenotazione degli slot dei campi
+interfaces:
+  - id: public-http
+    contract: public-http
+operations:
+  - id: prenota-slot
+    module: prenotazioni
+    interface_operation: prenotaSlot
+    description: Prenota uno slot libero e risponde 409 se è già occupato

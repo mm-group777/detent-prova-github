@@ -1,0 +1,47 @@
+// src/app/(app)/projects/page.tsx
+//
+// Esempio del LAYER APP. Non fa parte della feature: sta in app/ e mostra
+// quanto deve restare sottile una pagina. Legge i parametri, chiama l'API
+// layer della feature, compone i componenti. Nessuna query inline, nessuna
+// logica di business. Se un page.tsx supera le ~50 righe, quasi sempre
+// contiene qualcosa che appartiene a una feature.
+import { Suspense } from "react";
+
+import { getProjects } from "@/features/projects/api/get-projects";
+import { projectFiltersSchema } from "@/features/projects/schemas/project";
+import { ProjectsList } from "@/features/projects/components/projects-list";
+import { CreateProjectForm } from "@/features/projects/components/create-project-form";
+import { ProjectsSkeleton } from "@/features/projects/components/projects-skeleton";
+
+export const metadata = { title: "Progetti" };
+
+// Da Next 15 params e searchParams sono Promise.
+type PageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+export default async function ProjectsPage({ searchParams }: PageProps) {
+  const raw = await searchParams;
+
+  // Anche i parametri dell'URL sono input esterni: chiunque può scrivere
+  // ?page=-1 o ?status=qualsiasi_cosa nella barra degli indirizzi.
+  const filters = projectFiltersSchema.parse(raw);
+
+  return (
+    <main className="mx-auto max-w-4xl space-y-8 p-6">
+      <h1 className="text-2xl font-semibold">Progetti</h1>
+
+      {/* Il form appare subito; la lista arriva in streaming quando è pronta. */}
+      <CreateProjectForm />
+
+      <Suspense key={JSON.stringify(filters)} fallback={<ProjectsSkeleton />}>
+        <ProjectsSection filters={filters} />
+      </Suspense>
+    </main>
+  );
+}
+
+async function ProjectsSection({ filters }: { filters: ReturnType<typeof projectFiltersSchema.parse> }) {
+  const { projects, total } = await getProjects(filters);
+  return <ProjectsList projects={projects} total={total} />;
+}

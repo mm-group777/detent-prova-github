@@ -1,0 +1,19 @@
+# Ciò che l'avvio, le prove e il collaudo producono non è lavoro dei task e non deve sporcare l'albero: start-contract, integrate-contract
+# e promote-dev rifiutano un albero con file non registrati. Pid e log di make up stanno già in node_modules/.stack (node_modules è ignorata);
+# le righe *.pid e *.log coprono chi li scrive altrove nel progetto, e .env.test (copia di .env.example) non va mai in Git.
+node_modules/
+.env.*
+!.env.example
+*.log
+*.pid
+
+# Playwright scrive tutto sotto .playwright/ (skill playwright-e2e); TEST-RESULTS/ resta tracciato.
+.playwright/
+playwright-report/
+blob-report/
+.auth/
+.playwright-cli/
+.playwright-mcp/
+/test-results/*
+!/TEST-RESULTS/.gitkeep
+!/TEST-RESULTS/*.md

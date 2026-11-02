@@ -1,5 +1,16 @@
 schema_version: 1
-status: draft
-criteria: []
+status: ready
+criteria:
+  - id: AC-001
+    objective: OBJ-001
+    level: structural
+    given: un repository di prova collegato a GitHub
+    when: si apre una pull request verso il ramo di sviluppo
+    then: i check dichiarati girano e il merge richiede la firma
 traceability: []
-test_levels: [unit, integration, structural, e2e, deployment-smoke]
+test_levels:
+  - unit
+  - integration
+  - structural
+  - e2e
+  - deployment-smoke

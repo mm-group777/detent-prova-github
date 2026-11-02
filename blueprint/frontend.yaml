@@ -1,10 +1,10 @@
 schema_version: 1
-status: draft
+status: ready
 technology:
-  framework: undecided
-  language: undecided
-  package_manager: undecided
-  rendering: undecided
+  framework: none
+  language: none
+  package_manager: none
+  rendering: none
 design_source:
   path: DESIGN
   fidelity: reference
@@ -13,6 +13,6 @@ flows: []
 components: []
 data_requirements: []
 verification:
-  component_test: undecided
-  visual_test: undecided
-  accessibility_test: undecided
+  component_test: not-applicable
+  visual_test: not-applicable
+  accessibility_test: not-applicable

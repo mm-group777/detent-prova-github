@@ -1,0 +1,39 @@
+schema_version: 3
+status: ready
+environments:
+  development:
+    kind: development
+    location: local
+    commands:
+      install:
+        status: not_found
+        evidence: []
+      build:
+        status: not_found
+        evidence: []
+      test:
+        status: convention
+        command: git status --porcelain
+        evidence: []
+      e2e:
+        status: not_found
+        evidence: []
+      start:
+        status: not_found
+        evidence: []
+    services: []
+    variables: []
+tools: []
+strategy: none
+production_approval: manual
+rollback: none
+observability: none
+rollback_plan:
+  strategy: manual
+  environments: []
+external_resources:
+  github:
+    owner: mm-group777
+    access: read-only
+    hosts:
+      - github.com

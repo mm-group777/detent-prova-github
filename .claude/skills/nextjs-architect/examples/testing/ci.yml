@@ -1,0 +1,66 @@
+# .github/workflows/ci.yml
+#
+# Gli hook locali si saltano con --no-verify; la CI no. È qui che le regole
+# diventano vincolanti per davvero.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  # Un push nuovo annulla la CI del push precedente sullo stesso branch.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22" # Next 16 richiede Node >= 20.9
+          cache: "npm"
+
+      - run: npm ci
+
+      # Passi separati: un solo comando concatenato si ferma al primo errore e
+      # nasconde gli altri, costringendo a più giri di CI per vederli tutti.
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm run test
+
+      - name: Build
+        run: npm run build
+
+      - name: Audit dipendenze
+        run: npm audit --audit-level=high
+        continue-on-error: true # segnala senza bloccare la PR
+
+  e2e:
+    runs-on: ubuntu-latest
+    needs: quality # inutile far girare Playwright se i tipi non compilano
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          # Report e risultati di Playwright stanno sotto .playwright/ (skill playwright-e2e), mai in test-results/.
+          path: .playwright/
+          retention-days: 7

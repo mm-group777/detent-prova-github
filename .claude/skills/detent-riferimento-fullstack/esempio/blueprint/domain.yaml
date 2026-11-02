@@ -1,0 +1,18 @@
+schema_version: 1
+status: ready
+glossary:
+  - term: Slot
+    definition: Fascia oraria di un campo che un socio può prenotare
+actors:
+  - id: socio
+    description: Socio del circolo che prenota un campo
+entities:
+  - id: ENT-booking
+    name: Prenotazione
+    description: Prenotazione di uno slot da parte di un socio
+value_objects: []
+aggregates: []
+invariants:
+  - id: INV-001
+    description: Uno slot ha al massimo una prenotazione
+events: []

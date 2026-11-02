@@ -1,0 +1,353 @@
+version: 1
+generated_by: adopt-interview
+items:
+  - id: C01
+    class: domanda
+    topic: Perimetro della descrizione (campione)
+    question: "Il progetto non ha un'applicazione: la descrizione copre tutti i documenti presenti e non contiene programmi, dati salvati né prove automatiche vere. Va bene questo campione?"
+    recommended: "Accettare il campione: descrive il progetto com'è, senza un prodotto applicativo."
+    evidence:
+      - README.md
+      - blueprint/backend.yaml
+      - blueprint/database.yaml
+      - architecture.yaml
+    applied_in: []
+  - id: C02
+    class: evidenza
+    topic: Che cos'è il progetto
+    question: "Il progetto serve a provare il collegamento con il servizio che ospita il codice: rami di lavoro, richieste di modifica, controlli automatici e firma prima dell'unione. Confermi?"
+    recommended: "Confermare: è lo scopo scritto nella descrizione del progetto."
+    evidence:
+      - README.md
+    applied_in:
+      - blueprint/project.yaml
+      - blueprint/objectives.yaml
+  - id: C03
+    class: evidenza
+    topic: Nessuna applicazione
+    question: "Nel progetto non ci sono programmi, prove automatiche, servizi avviati né dati salvati: i documenti raccontano un progetto senza applicazione. Confermi?"
+    recommended: "Confermare: è quanto risulta dai documenti presenti."
+    evidence:
+      - README.md
+      - blueprint/backend.yaml
+      - blueprint/database.yaml
+      - blueprint/frontend.yaml
+      - blueprint/api.yaml
+    applied_in:
+      - blueprint/backend.yaml
+      - blueprint/frontend.yaml
+      - blueprint/api.yaml
+      - blueprint/database.yaml
+  - id: C04
+    class: domanda
+    topic: Responsabili del progetto
+    question: Nessun file indica chi sono i responsabili del progetto. Vuoi indicarli, oppure vanno lasciati vuoti per ora?
+    recommended: Conserva il valore attuale
+    evidence:
+      - README.md
+      - blueprint/project.yaml
+    applied_in:
+      - blueprint/project.yaml
+    resolved:
+      inputs:
+        - id: owners
+          label: Responsabili del progetto
+          answer: []
+  - id: C05
+    class: domanda
+    topic: Dati salvati e ripristino
+    question: "Nel progetto non ci sono dati salvati e non ho trovato passaggi per aggiornarli o ripristinarli: confermi che non ci sono dati da conservare, o esiste una procedura che va documentata?"
+    recommended: Conserva il valore attuale
+    evidence:
+      - README.md
+      - blueprint/database.yaml
+    applied_in:
+      - blueprint/database.yaml
+    resolved:
+      inputs:
+        - id: rollback-strategy
+          label: Modo per tornare indietro sui dati
+          answer: nessuno
+  - id: C06
+    class: decisa-per-i-controlli
+    topic: Una parte del progetto messa solo per il controllo
+    question: "Il controllo chiede almeno una parte di programma, ma il progetto non ha programmi: ho registrato una parte segnaposto senza una tecnologia vera. Va bene, o il progetto deve avere una parte di programma vera?"
+    recommended: Conserva il valore attuale
+    evidence:
+      - README.md
+      - blueprint/backend.yaml
+    applied_in:
+      - blueprint/backend.yaml
+    resolved:
+      inputs:
+        - id: backend-technology
+          label: Tecnologia della parte di programma
+          answer: none
+        - id: backend-module
+          label: Nome della parte segnaposto
+          answer: repository-di-prova
+  - id: C07
+    class: decisa-per-i-controlli
+    topic: Scelte sul rilascio
+    question: "Il progetto non descrive come viene messo online né come si torna indietro: ho indicato che non viene messo online e che l'ambiente di lavoro è sul computer. Vanno bene o vanno decise?"
+    recommended: Conserva il valore attuale
+    evidence:
+      - README.md
+      - blueprint/deployment.yaml
+    applied_in:
+      - blueprint/deployment.yaml
+    resolved:
+      inputs:
+        - id: deploy-strategy
+          label: Modo di pubblicazione
+          answer: none
+        - id: deploy-rollback
+          label: Ritorno alla versione precedente
+          answer: none
+        - id: deploy-observability
+          label: Controllo del funzionamento
+          answer: none
+        - id: deploy-production-approval
+          label: Approvazione prima della pubblicazione
+          answer: manual
+        - id: deploy-rollback-plan
+          label: Piano per tornare indietro
+          answer: manual
+        - id: deploy-location
+          label: Dove gira l'ambiente di lavoro
+          answer: local
+  - id: C08
+    class: decisa-per-i-controlli
+    topic: La prova provvisoria del progetto
+    question: "Il progetto non ha prove automatiche né un'istruzione di prova vera: come prova provvisoria ho indicato un controllo di base sul progetto. Va bene, o c'è un'istruzione vera da usare?"
+    recommended: Conserva il valore attuale
+    evidence:
+      - README.md
+      - blueprint/deployment.yaml
+    applied_in:
+      - blueprint/deployment.yaml
+    resolved:
+      inputs:
+        - id: test-status
+          label: Origine della prova
+          answer: convention
+        - id: test-command
+          label: Istruzione di prova proposta
+          answer: git status --porcelain
+  - id: C09
+    class: domanda
+    topic: Istruzioni assenti
+    question: Nessun documento descrive come installare, costruire, avviare o fare un collaudo completo, e non servono impostazioni da fornire. Confermi che queste istruzioni non esistono?
+    recommended: Lascia fuori il campo
+    evidence:
+      - README.md
+      - blueprint/deployment.yaml
+    applied_in: []
+  - id: C10
+    class: decisa-per-i-controlli
+    topic: "Copertura provvisoria: nessun collaudo automatico vero"
+    question: "Il progetto non ha un collaudo automatico: ho dichiarato un insieme di prove provvisorio che esegue la prova provvisoria del progetto, senza passaggi reali. Non è un collaudo completo vero. Va bene o esiste un collaudo da collegare?"
+    recommended: Conserva il valore attuale
+    evidence:
+      - README.md
+      - blueprint/acceptance.yaml
+      - architecture.yaml
+    applied_in:
+      - architecture.yaml
+    resolved:
+      inputs:
+        - id: suite-name
+          label: Nome dell'insieme di prove
+          answer: prova
+        - id: suite-runner
+          label: Modo di esecuzione
+          answer: existing
+        - id: suite-command
+          label: Istruzione eseguita
+          answer: git status --porcelain
+        - id: suite-instances
+          label: Servizi usati
+          answer:
+            - github
+        - id: suite-environment
+          label: Ambiente usato
+          answer: test
+        - id: suite-specs
+          label: Documenti usati come prova
+          answer:
+            - README.md
+  - id: C11
+    class: decisa-per-i-controlli
+    topic: Collegamento esterno con il servizio che ospita il codice
+    question: "Il controllo chiede almeno un servizio nella soluzione e un elenco delle risorse esterne: ho indicato il servizio che ospita il codice come collegamento esterno in sola lettura, senza avviare nulla. Va bene?"
+    recommended: Conserva il valore attuale
+    evidence:
+      - .git/config
+      - README.md
+      - architecture.yaml
+      - blueprint/deployment.yaml
+    applied_in:
+      - architecture.yaml
+      - blueprint/deployment.yaml
+    resolved:
+      inputs:
+        - id: instance-kind
+          label: Tipo di servizio
+          answer: external
+        - id: instance-technology
+          label: Nome del servizio
+          answer: GitHub
+        - id: instance-host
+          label: Indirizzo del servizio
+          answer: github.com
+        - id: resource-owner
+          label: Proprietario della risorsa esterna
+          answer: mm-group777
+        - id: resource-access
+          label: Livello di accesso consentito
+          answer: read-only
+        - id: resource-hosts
+          label: Indirizzi della risorsa
+          answer:
+            - github.com
+  - id: C12
+    class: decisa-per-i-controlli
+    topic: Ambiente di collaudo vuoto
+    question: "Il progetto non ha un ambiente di prova: ho dichiarato un ambiente di collaudo vuoto per collegare l'insieme di prove provvisorio. Va bene?"
+    recommended: Conserva il valore attuale
+    evidence:
+      - architecture.yaml
+    applied_in:
+      - architecture.yaml
+    resolved:
+      inputs:
+        - id: env-kind
+          label: Tipo di ambiente
+          answer: test
+        - id: env-files
+          label: Impostazioni dell'ambiente
+          answer: []
+        - id: env-variables
+          label: Valori richiesti dall'ambiente
+          answer: []
+  - id: C13
+    class: decisa-per-i-controlli
+    topic: Nessun servizio da mettere online
+    question: "Il progetto non ha servizi da mettere online: per soddisfare il controllo ho indicato valori locali e nessun servizio da eseguire. Vanno bene?"
+    recommended: Conserva il valore attuale
+    evidence:
+      - AGENT.md
+      - architecture.yaml
+    applied_in:
+      - architecture.yaml
+    resolved:
+      inputs:
+        - id: infra-provider
+          label: Fornitore dell'impianto
+          answer: local
+        - id: infra-region
+          label: Regione
+          answer: local
+        - id: infra-iac
+          label: Modo per descrivere l'impianto
+          answer: none
+        - id: infra-runtime
+          label: Modo di esecuzione dei servizi
+          answer: none
+        - id: infra-orchestration
+          label: Gestione automatica dei servizi
+          answer: none
+        - id: infra-network
+          label: Rete
+          answer: loopback
+        - id: infra-scaling
+          label: Crescita automatica delle copie
+          answer: false
+        - id: infra-min
+          label: Numero minimo di copie
+          answer: 1
+        - id: infra-max
+          label: Numero massimo di copie
+          answer: 1
+  - id: C14
+    class: evidenza
+    topic: Nessun archivio dati
+    question: "Nel progetto non esistono un archivio dati, aggiornamenti della struttura dei dati, dati iniziali, copie di sicurezza o istruzioni di ripristino: i documenti dichiarano che non ci sono dati da conservare. Confermi?"
+    recommended: "Confermare: nessun file del progetto implementa o configura un archivio dati."
+    evidence:
+      - README.md
+      - blueprint/database.yaml
+    applied_in:
+      - blueprint/database.yaml
+  - id: C15
+    class: evidenza
+    topic: Come si organizza il lavoro sul codice
+    question: Il progetto usa un ramo principale, un ramo di sviluppo e rami separati per le modifiche e le prove; i primi due esistono. Confermi?
+    recommended: "Confermare: è l'organizzazione installata dalla fabbrica."
+    evidence:
+      - blueprint/git.yaml
+      - project.yaml
+    applied_in:
+      - blueprint/git.yaml
+  - id: C16
+    class: evidenza
+    topic: Sicurezza e regole di lavoro
+    question: Nel progetto non ci sono password o chiavi salvate; si usano solo riferimenti, e le regole di lavoro chiedono di non scrivere segreti e di usare una cartella temporanea. Confermi?
+    recommended: "Confermare: le regole vengono dalle istruzioni della fabbrica e dalle regole di sicurezza del progetto."
+    evidence:
+      - AGENT.md
+      - blueprint/security.yaml
+    applied_in:
+      - blueprint/security.yaml
+  - id: C17
+    class: evidenza
+    topic: Come si prepara e si avvia il progetto
+    question: La descrizione dell'ambiente dichiara che il progetto non ha istruzioni proprie di installazione, costruzione o avvio; l'unica prova è un controllo di base provvisorio. Confermi?
+    recommended: "Confermare: nessun file del progetto descrive istruzioni vere."
+    evidence:
+      - README.md
+      - blueprint/deployment.yaml
+      - architecture.yaml
+    applied_in:
+      - blueprint/deployment.yaml
+      - architecture.yaml
+  - id: C18
+    class: convenzione
+    topic: Convenzioni della fabbrica riportate nella mappa
+    question: "Le regole della fabbrica (niente segreti, file temporanei in una cartella dedicata, stati firmati intoccabili) sono riportate nella mappa del progetto come convenzioni: vanno bene?"
+    recommended: "Confermarle: sono le regole della fabbrica già attive."
+    evidence:
+      - AGENT.md
+    applied_in: []
+  - id: C19
+    class: domanda
+    topic: Cosa deve diventare il progetto
+    question: "Oggi il progetto non ha un'applicazione: deve restare un banco di prova per il collegamento con il servizio che ospita il codice o deve ospitare un prodotto da costruire?"
+    recommended: Lasciare il progetto com'è finché la persona non decide se costruire un prodotto.
+    evidence:
+      - README.md
+    applied_in: []
+  - id: C20
+    class: decisa-per-i-controlli
+    topic: Regola di accettazione senza prova automatica
+    question: La regola di accettazione descrive il comportamento atteso, ma nessuna prova automatica vera lo verifica. Va bene come regola da confermare a mano?
+    recommended: Conserva il valore attuale
+    evidence:
+      - README.md
+      - blueprint/acceptance.yaml
+    applied_in:
+      - blueprint/acceptance.yaml
+    resolved:
+      inputs:
+        - id: criterion-level
+          label: Tipo di verifica
+          answer: structural
+        - id: criterion-given
+          label: Situazione di partenza
+          answer: un repository di prova collegato a GitHub
+        - id: criterion-when
+          label: Azione compiuta
+          answer: si apre una pull request verso il ramo di sviluppo
+        - id: criterion-then
+          label: Risultato atteso
+          answer: i check dichiarati girano e il merge richiede la firma

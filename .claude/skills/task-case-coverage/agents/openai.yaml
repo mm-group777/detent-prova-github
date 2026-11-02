@@ -1,0 +1,4 @@
+interface:
+  display_name: "Task Case Coverage"
+  short_description: "Casi limite del task prima del codice"
+  default_prompt: "Usa $task-case-coverage per elencare i casi limite del task prima di scrivere codice e coprirli con test."

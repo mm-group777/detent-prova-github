@@ -1,0 +1,166 @@
+schema_version: 1
+status: ready
+system:
+  name: detent-prova-github
+  description: "Repository di prova per l'integrazione GitHub di Detent: branch,
+    PR, check e firma prima del merge."
+  criticality: standard
+  data_classification: internal
+environments:
+  test:
+    kind: test
+    env_files: []
+    variables: []
+    secrets: {}
+lifecycle: {}
+instances:
+  github:
+    kind: external
+    technology: GitHub
+    interface:
+      host: github.com
+    depends_on: []
+connections: []
+testing:
+  review_suite: prova
+  suites:
+    prova:
+      runner: existing
+      command: git status --porcelain
+      instances:
+        - github
+      environment: test
+      specs:
+        - README.md
+      journeys: []
+policies:
+  security: []
+  deployment: []
+  observability: []
+  operations: []
+security: {}
+infrastructure:
+  provider: local
+  region: local
+  infrastructure_as_code:
+    tool: none
+  container_runtime: none
+  orchestration: none
+  networking:
+    network: loopback
+  scaling:
+    autoscaling: false
+    min_replicas: 1
+    max_replicas: 1
+delivery: {}
+observability: {}
+operations: {}
+agent_policy:
+  allowed_actions:
+    - read_repository
+    - write_source
+    - execute_tests
+  forbidden_actions:
+    - read_secret_values
+    - deploy_production
+    - delete_production_data
+blueprint:
+  revision: 1
+  status: ready
+  compiled_at: 2026-11-02T23:52:11.247Z
+  sources:
+    project:
+      path: blueprint/project.yaml
+      sha256: 91bce79e992be2313fb9b64653047d71ebff969acc8c3a1acefd10bac6477f9d
+    objectives:
+      path: blueprint/objectives.yaml
+      sha256: 750c451405288811f51bf6c3754f11091b9ae6fbabbdee55ef6f2fc539996d18
+    domain:
+      path: blueprint/domain.yaml
+      sha256: 47babea869fd1f61de118fbb5b5a1661ab18037b7f0f13e49364a306ed2051fb
+    database:
+      path: blueprint/database.yaml
+      sha256: e5cac7d4c9c7c72a4ff2ab81b794057f7303734444b1d3183bbcad6a105ef3a6
+    backend:
+      path: blueprint/backend.yaml
+      sha256: ccc6c684353bc7fb3d67b07959d249ae921cf0651599314248b9d5fc0128ae15
+    frontend:
+      path: blueprint/frontend.yaml
+      sha256: 85047eb27a133c0d79ffb0ae6052e60afabd62f2415cf4add235a5b63f71f95e
+    api:
+      path: blueprint/api.yaml
+      sha256: c23a1c4154bed0b6aefb06fbc6fbc65d70ee0f00b6415f57bcfd5509f06e53e2
+    acceptance:
+      path: blueprint/acceptance.yaml
+      sha256: d51299e298953c30425160051d2f211e3919ab902a09255784ff38bbad40e306
+    deployment:
+      path: blueprint/deployment.yaml
+      sha256: e1f393d97d464f27ab6c570010879bff9c436e2ad167754779155db836cf6ec9
+    security:
+      path: blueprint/security.yaml
+      sha256: efd0151beb099bbca06fdb51d57c31a4fc0c3bbfbfc3541095db25e648deed31
+    git:
+      path: blueprint/git.yaml
+      sha256: 7042e216be87bef2d1c2f94393d8bb3cfa1e67ab3c3f24e6c0498dc263e0f29c
+  overview:
+    main_branch: main
+    development_branch: dev
+    project_name: detent-prova-github
+    objectives: 1
+    objective_ids:
+      - OBJ-001
+    objective_details:
+      - id: OBJ-001
+        title: Provare l'integrazione GitHub di Detent
+        outcome: Sul repository di prova si aprono branch e pull request, i check girano
+          e il merge richiede la firma.
+    domain_entities: 0
+    domain_invariant_ids: []
+    domain_invariant_details: []
+    database_tables: 0
+    database_engine: none
+    database_table_names: []
+    backend_modules:
+      - "Il repository di prova: non contiene codice applicativo; il suo
+        comportamento è il flusso Git (branch, pull request, check, firma)."
+    frontend_routes: []
+    frontend_flows: []
+    api_contracts: []
+    acceptance_criteria: 1
+    acceptance_criterion_ids:
+      - AC-001
+    acceptance_scenarios:
+      - id: AC-001
+        objective: OBJ-001
+        given: un repository di prova collegato a GitHub
+        when: si apre una pull request verso il ramo di sviluppo
+        then: i check dichiarati girano e il merge richiede la firma
+    deployment_environments:
+      - development
+    deployment_contract:
+      strategy: none
+      rollback: none
+      production_approval: manual
+      observability: none
+    security_policies: 1
+    security_policy_details:
+      - "Nessun segreto versionato: solo nomi di variabili e riferimenti."
+  artifacts:
+    - id: design
+      kind: directory
+      path: DESIGN
+      sha256: 808df8a80c03b6f7bad9345a12dfc5e1cd0101c1ebe422f043ceb1f21973a171
+  contracts:
+    - id: MC-001
+      block_id: onda-1
+      version: 1
+      status: ready
+      path: blueprint/contracts/MC-001.yaml
+      sha256: bb476d732cffdc23d7401374b90d37898ec763868e8616178bc0e4d1282ad7b7
+  tasks:
+    - id: MC-001-T01
+      parent: MC-001
+      progress_task_id: T1.1
+      status: ready
+      path: blueprint/tasks/T1.1.yaml
+      sha256: 182f6213d8869b8e3ab1342c8116c110048ab5815959f134ec1a9077963644d6

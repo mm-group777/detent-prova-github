@@ -1,0 +1,29 @@
+schema_version: 1
+status: ready
+revision: 1
+technology:
+  engine: none
+  version: none
+  extensions: []
+ownership:
+  owner: backend
+  source_of_truth_for: []
+environments: {}
+connections: {}
+migrations:
+  tool: none
+  path: none
+  apply_command: none
+  rollback_strategy: nessuno
+tables: {}
+relationships: []
+invariants: []
+access_patterns: []
+lifecycle:
+  seed_command: none
+  backup_command: none
+  restore_command: none
+verification:
+  schema_test: not-applicable
+  migration_test: not-applicable
+  integration_test: not-applicable

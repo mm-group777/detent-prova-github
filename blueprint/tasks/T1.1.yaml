@@ -1,0 +1,35 @@
+schema_version: 2
+id: MC-001-T01
+parent: MC-001
+progress_task_id: T1.1
+status: ready
+title: Aggiunge formatDuration e la sua prova
+objective: La funzione formatDuration copre secondi, minuti, ore, decimali arrotondati per difetto e valori non validi; la prova nuova test/duration.test.js fallisce senza src/duration.js e passa con essa.
+workstream: platform
+interface_operations: []
+alignment:
+  objectives:
+    - OBJ-001
+  acceptance:
+    - AC-001
+  domain_invariants: []
+dependencies:
+  - T0.4
+change_scope:
+  allowed_paths:
+    - src/duration.js
+    - test/duration.test.js
+  forbidden_paths:
+    - DESIGN/**
+    - architecture.yaml
+    - blueprint/**
+    - .factory/**
+    - journal.jsonl
+    - TEST-RESULTS/**
+    - procedure.yaml
+    - project.yaml
+verify:
+  command: node --test test/duration.test.js
+  evidence:
+    - test-report
+    - commit-sha

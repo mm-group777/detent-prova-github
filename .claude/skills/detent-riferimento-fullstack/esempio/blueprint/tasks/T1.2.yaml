@@ -1,0 +1,34 @@
+schema_version: 2
+id: T1.2
+parent: MC-001
+progress_task_id: T1.2
+status: ready
+title: Pagina di prenotazione
+objective: 'costruire la route RT-prenota fedele a DESIGN/prenotazione.html, con un client validato sull''OpenAPI per prenotaSlot'
+workstream: frontend
+interface_operations:
+  - prenotaSlot
+alignment:
+  objectives:
+    - GOAL-001
+  acceptance:
+    - AC-001
+  domain_invariants: []
+dependencies: []
+change_scope:
+  allowed_paths:
+    - frontend/src/**
+    - frontend/package.json
+    - frontend/package-lock.json
+  forbidden_paths:
+    - DESIGN/**
+    - architecture.yaml
+    - blueprint/**
+    - .factory/**
+    - journal.jsonl
+    - TEST-RESULTS/**
+verify:
+  command: cd frontend && npm test -- src/features/booking
+  evidence:
+    - test-report
+    - commit-sha

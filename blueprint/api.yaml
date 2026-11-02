@@ -1,0 +1,7 @@
+schema_version: 1
+status: ready
+protocol: none
+contracts: []
+compatibility:
+  policy: none
+  breaking_change: human-approval

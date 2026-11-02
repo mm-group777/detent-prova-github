@@ -1,0 +1,4 @@
+interface:
+  display_name: "Adopt Interview"
+  short_description: "Ricava i documenti del Blueprint da un repository esistente"
+  default_prompt: "Usa $adopt-interview per ricavare dal codice di questo repository i documenti di genesi e le conferme per la persona."

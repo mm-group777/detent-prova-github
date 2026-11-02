@@ -1,0 +1,35 @@
+schema_version: 1
+status: ready
+technology: { framework: nextjs, language: typescript, package_manager: npm, rendering: hybrid }
+design_source: { path: DESIGN, fidelity: reference }
+design_language:
+  layout: colonna singola centrata, larghezza massima 480px
+  tokens:
+    colors: { primary: '#2563EB', background: '#F8FAFC', text: '#0F172A' }
+    typography: { family: Inter, scale: [16, 24] }
+    spacing: [8, 16, 24, 40]
+    radius: 8
+  breakpoints: [768]
+routes:
+  - id: RT-prenota
+    path: /prenota
+    description: Prenotazione di uno slot
+    design_ref: prenotazione.html
+    states: [idle, success, error]
+flows:
+  - id: FLW-prenota
+    description: Prenotare uno slot libero
+    routes: [RT-prenota]
+    acceptance: [AC-001]
+    operations: [prenotaSlot]
+    required_inputs: [Slot]
+    required_actions: [Prenota]
+    expected_outcomes: [Prenotazione confermata]
+components: []
+data_requirements:
+  - id: FE-DATA-001
+    route: RT-prenota
+    direction: write
+    purpose: Prenotare lo slot scelto dal socio
+    operation_id: prenotaSlot
+verification: { component_test: vitest, visual_test: playwright, accessibility_test: axe }

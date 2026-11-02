@@ -1,0 +1,8 @@
+schema_version: 1
+status: ready
+technology: none
+modules:
+  - id: repository-di-prova
+    description: "Il repository di prova: non contiene codice applicativo; il suo comportamento è il flusso Git (branch, pull request, check, firma)."
+interfaces: []
+operations: []

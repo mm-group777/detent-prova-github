@@ -1,0 +1,44 @@
+schema_version: 1
+id: MC-001
+version: 1
+status: ready
+block_id: onda-1
+title: Modulo slugify con la sua prova
+outcome:
+  description: La persona dispone di un modulo JavaScript senza dipendenze che trasforma un titolo in uno slug e di una prova node:test eseguibile con node --test; nessun obiettivo del Blueprint descrive questo lavoro, quindi OBJ-001 e AC-001 restano i riferimenti più vicini, non un allineamento tematico.
+alignment:
+  objectives:
+    - OBJ-001
+  acceptance:
+    - AC-001
+  domain_invariants: []
+scope:
+  includes:
+    - Modulo src/slugify.js con la funzione slugify in CommonJS
+    - Prova test/slugify.test.js con node:test
+    - "Regole dello slug: minuscole, senza accenti, trattini singoli, nessun trattino agli estremi, stringa vuota se non resta nulla"
+  excludes:
+    - Modifiche o rinomine di file esistenti, README compreso
+    - Dipendenze npm e framework
+    - Rilascio o pubblicazione
+architecture_impact:
+  instances: []
+  connections: []
+database_impact:
+  required: false
+  changes: []
+  migration:
+    required: false
+    backwards_compatible: true
+    destructive: false
+verification:
+  structural:
+    - node --check src/slugify.js
+    - node --check test/slugify.test.js
+  integration:
+    - node --test test/slugify.test.js
+  e2e: []
+  regression: node --test
+git:
+  branch_type: feature
+  branch: feature/slugify

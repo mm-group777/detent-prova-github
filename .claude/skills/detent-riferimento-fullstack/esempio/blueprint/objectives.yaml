@@ -1,0 +1,8 @@
+schema_version: 1
+status: ready
+objectives:
+  - id: GOAL-001
+    title: Prenotare i campi senza telefonate
+    outcome: 80% delle prenotazioni online entro tre mesi
+non_goals: []
+success_metrics: []

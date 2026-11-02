@@ -1,0 +1,55 @@
+schema_version: 1
+status: ready
+system:
+  name: Circolo padel
+  description: Prenotare i campi senza telefonate
+environments:
+  e2e: { kind: test, env_files: [.env.test], variables: [PLAYWRIGHT_BASE_URL, API_URL], secrets: {} }
+lifecycle: { setup: make install, start: make up, stop: make down }
+instances:
+  web:
+    kind: frontend
+    technology: Next.js
+    path: frontend
+    depends_on: [api]
+    healthcheck: { type: http, url: 'http://127.0.0.1:3000' }
+  api:
+    kind: backend
+    technology: Node
+    path: backend
+    depends_on: []
+    healthcheck: { type: http, url: 'http://127.0.0.1:8000/health' }
+connections:
+  - { from: web, to: api, protocol: http, via_env: API_URL, verify: 'curl -fsS http://127.0.0.1:8000/health' }
+infrastructure:
+  provider: local
+  region: local
+  infrastructure_as_code: { tool: none }
+  container_runtime: process
+  orchestration: none
+  networking: { network: loopback }
+  scaling: { autoscaling: false, min_replicas: 1, max_replicas: 1 }
+testing:
+  review_suite: e2e
+  suites:
+    e2e:
+      runner: playwright
+      command: npx playwright test --config=playwright.system.config.ts
+      instances: [web, api]
+      environment: e2e
+      specs: [tests/system-e2e/prenota.spec.ts]
+      journeys:
+        - name: prenota
+          kind: system-e2e
+          flow: FLW-prenota
+          acceptance: [AC-001]
+          operations: [prenotaSlot]
+          operation_statuses: { prenotaSlot: [201] }
+          required_inputs: [Slot]
+          required_actions: [Prenota]
+          expected_outcomes: [Prenotazione confermata]
+          spec: tests/system-e2e/prenota.spec.ts
+          path: [web, api]
+          mocks: []
+      timeout_seconds: 600
+      artifacts: [playwright-report]

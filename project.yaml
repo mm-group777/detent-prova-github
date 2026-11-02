@@ -1,0 +1,69 @@
+# Configurazione di progetto — detent-prova-github
+name: detent-prova-github
+
+# Profilo linee guida (profiles/<nome>/ nella fabbrica)
+profile: default
+
+# Skill tecnologiche attive, iniettate anche negli engine senza discovery nativa.
+# Le skill del metodo (implement-task, codestyle, debug, verify) sono sempre incluse.
+skills: []
+# skills: [fastapi]
+
+# Regole opzionali dello SkillRouter (la fabbrica non ne impone). Una regola dà
+# ai task dei suoi workstream le skill obbligatorie. Le skill personalizzate
+# vivono in .claude/skills/<nome>/SKILL.md.
+# skill_router:
+#   rules:
+#     backend:
+#       workstreams: [backend]
+#       required_skills: [mia-skill-fastapi]
+
+# Override opzionale del motore configurato nella fabbrica
+engine: opencode
+
+# Se attivato, run e chat usano la mappa del codice come prima tappa di ogni ricerca (factory grafo);
+# Claude Code aggiunge anche la guardia PreToolUse strict supportata dall'engine.
+# Richiede la mappa (graphify-out/indice-sezioni.json o graph.json): si costruisce con `factory map`.
+# graphify: true
+
+# Tetto di spesa per questo progetto (sovrascrive il default di fabbrica)
+budget_usd: 50
+
+# Tentativi per task prima di marcarlo bloccato: intero positivo. Base 3: si alza dal
+# pannello fino al tetto della casa (defaults.max_attempts in factory.yaml), si abbassa
+# sempre; un rialzo scritto a mano qui non vale. Con 1 il modello escalate non viene
+# mai usato (il task si blocca al primo verify rosso).
+max_attempts: 3
+
+# Variabili d'ambiente per engine e verify (vincono su .env del progetto).
+# Il runner attiva già da solo: .venv/venv sul PATH, node_modules/.bin, e carica .env.
+# env:
+#   DATABASE_URL: postgresql://localhost/dev
+
+# Identità con cui l'engine firma i commit (facoltativa; name ed email insieme, una riga, senza < e >).
+# Senza, vale «Agente <brand>» con l'indirizzo agente@<brand>.invalid, dal brand di factory.yaml.
+# agent_identity:
+#   name: Agente Nome Progetto
+#   email: agente@esempio.invalid
+
+# Modelli del loop per engine (gli identificatori cambiano tra le CLI)
+engine_models:
+  opencode:
+    implement: deepseek/deepseek-flash
+    escalate: deepseek/deepseek-flash
+
+# Server MCP aggiuntivi per questo progetto (si sommano a quelli di fabbrica;
+# il runner li converte nel file/formato dichiarato dall'adapter scelto)
+integrations:
+  github:
+    pr_on_block: true
+    pr_base: dev
+
+mcp: {}
+
+# Progetto adottato: la fabbrica è stata installata dentro un repository già esistente (factory adopt).
+# I file di istruzioni della persona (AGENTS.md, CLAUDE.md) non si toccano: AGENT.md sta accanto e il prompt dell'engine lo cita per primo.
+# I file di configurazione dell'engine (.codex/, .mcp.json, opencode.json, ...) restano di questa macchina, fuori da Git.
+adopted: true
+# Perimetro di scrittura dei Task Contract acceso: un task che tocca un file fuori da allowed_paths ferma il loop.
+task_scope: enforce

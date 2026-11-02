@@ -1,0 +1,39 @@
+schema_version: 3
+status: ready
+environments:
+  development:
+    kind: development
+    location: local
+    commands:
+      install: { status: derived, command: make install, evidence: [Makefile] }
+      build: { status: derived, command: make build, evidence: [Makefile] }
+      test: { status: derived, command: make test, evidence: [Makefile] }
+      e2e: { status: derived, command: make e2e, evidence: [Makefile, architecture.yaml] }
+      start: { status: derived, command: make up, evidence: [Makefile] }
+    services: [web, api]
+  test:
+    kind: test
+    location: local
+    commands:
+      install: { status: derived, command: make install, evidence: [Makefile] }
+      build: { status: derived, command: make build, evidence: [Makefile] }
+      test: { status: derived, command: make test, evidence: [Makefile] }
+      e2e: { status: derived, command: make e2e, evidence: [Makefile, architecture.yaml] }
+      start: { status: derived, command: make up, evidence: [Makefile] }
+    services: [web, api]
+tools:
+  - { name: node, check: tool }
+  - { name: npm, check: tool }
+  - { name: make, check: tool }
+  - { name: curl, check: tool }
+  - { name: pgrep, check: tool }
+  - { name: ps, check: tool }
+  - { name: playwright, check: manual, note: 'Il collaudo di sistema usa Playwright con Chromium: si installa una volta con npx playwright install chromium.' }
+strategy: local-test
+production_approval: manual
+rollback: git-revert
+observability: process-output
+rollback_plan:
+  strategy: git-revert
+  environments: []
+external_resources: {}

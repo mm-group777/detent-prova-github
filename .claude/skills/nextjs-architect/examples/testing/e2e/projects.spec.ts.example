@@ -1,0 +1,32 @@
+// e2e/projects.spec.ts
+//
+// I test E2E costano tempo a ogni esecuzione: riservali ai percorsi il cui
+// fallimento è inaccettabile — login, pagamento, creazione della risorsa
+// principale. Tutto il resto si copre meglio con test unitari e di componente.
+import { expect, test } from "@playwright/test";
+
+test.describe("Progetti", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/login");
+    await page.getByLabel(/email/i).fill("test@example.com");
+    await page.getByLabel(/password/i).fill("password123");
+    await page.getByRole("button", { name: /accedi/i }).click();
+    await expect(page).toHaveURL(/\/app/);
+  });
+
+  test("crea un progetto e lo mostra nella lista", async ({ page }) => {
+    await page.goto("/projects");
+    const name = `Progetto E2E ${Date.now()}`; // nome unico: i test non si disturbano
+
+    await page.getByLabel(/nome/i).fill(name);
+    await page.getByRole("button", { name: /crea progetto/i }).click();
+
+    await expect(page.getByRole("heading", { name })).toBeVisible();
+  });
+
+  test("mostra l'errore di validazione senza ricaricare la pagina", async ({ page }) => {
+    await page.goto("/projects");
+    await page.getByRole("button", { name: /crea progetto/i }).click();
+    await expect(page.getByRole("alert")).toContainText(/obbligatorio/i);
+  });
+});

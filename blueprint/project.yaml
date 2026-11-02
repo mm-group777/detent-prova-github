@@ -1,0 +1,8 @@
+schema_version: 1
+revision: 1
+status: ready
+project:
+  id: detent-prova-github
+  name: detent-prova-github
+  description: "Repository di prova per l'integrazione GitHub di Detent: branch, PR, check e firma prima del merge."
+  owners: []

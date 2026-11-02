@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tech Research"
+  short_description: "Verifica un fatto tecnico su fonte primaria"
+  default_prompt: "Usa $tech-research per verificare questo fatto tecnico: prima context7, poi la ricerca web su fonte primaria."

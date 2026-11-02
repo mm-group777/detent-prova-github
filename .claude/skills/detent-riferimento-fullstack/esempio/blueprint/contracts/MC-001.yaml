@@ -1,0 +1,48 @@
+schema_version: 1
+id: MC-001
+version: 1
+status: ready
+block_id: blocco-1
+title: Prenotazione online
+outcome:
+  description: il socio prenota uno slot libero dalla pagina e riceve la conferma; uno slot già prenotato viene rifiutato
+alignment:
+  objectives:
+    - GOAL-001
+  acceptance:
+    - AC-001
+    - AC-002
+  domain_invariants:
+    - INV-001
+scope:
+  includes:
+    - Operazione prenotaSlot sul server
+    - Pagina di prenotazione
+    - Prenotazione dalla pagina al server
+  excludes: []
+architecture_impact:
+  instances:
+    - web
+    - api
+  connections:
+    - web to api
+database_impact:
+  required: false
+  changes: []
+  migration:
+    required: false
+    backwards_compatible: true
+    destructive: false
+verification:
+  structural:
+    - cd backend && npm run typecheck
+    - cd frontend && npm run typecheck
+  integration:
+    - cd backend && npm test
+    - cd frontend && npm test
+  e2e:
+    - factory architecture test .
+  regression: cd backend && npm test && cd ../frontend && npm test
+git:
+  branch_type: feature
+  branch: feature/1-prenotazione-online

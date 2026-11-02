@@ -1,0 +1,4 @@
+interface:
+  display_name: "Playwright E2E"
+  short_description: "Automatizza test frontend profondi con Playwright"
+  default_prompt: "Usa $playwright-e2e per trasformare i criteri del task in test frontend reali, eseguirli e produrre Evidence."

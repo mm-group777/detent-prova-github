@@ -1,0 +1,19 @@
+# Verifica minima della repository di prova di Detent: passa sempre, cade solo se il file ESITO dice "rosso".
+name: Verifica
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+jobs:
+  verifica:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Esito a comando
+        run: |
+          if [ -f ESITO ] && [ "$(tr -d '[:space:]' < ESITO)" = "rosso" ]; then
+            echo "Verifica rossa a comando (ESITO = rosso)"
+            exit 1
+          fi
+          echo "Verifica verde"

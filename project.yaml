@@ -1,0 +1,49 @@
+# Configurazione di progetto: prova-consegna
+name: prova-consegna
+
+# Profilo linee guida (profiles/<nome>/ nella fabbrica)
+profile: default
+
+# Skill tecnologiche attive, iniettate anche negli engine senza discovery nativa.
+# Le skill del metodo (codestyle, debug, verify, memory) sono sempre incluse.
+skills: []
+
+# Override opzionale del motore configurato nella fabbrica
+engine: opencode
+
+# Se attivato, il progetto ha la mappa del codice (factory grafo): aiuta a orientarsi, non è un obbligo.
+# Richiede la mappa (graphify-out/indice-sezioni.json o graph.json): si costruisce con `factory map`.
+# graphify: true
+
+# Dossier di contesto: prima dell'engine il sistema prepara pochi file di riferimento per il task (ricerca per testo se la mappa non c'è).
+# Provvisorio: resta acceso nei progetti nuovi solo se la misura dei giri mostra un guadagno; nei progetti adottati nasce spento
+# (lo accende `factory map` dove la mappa c'è). Con `context_dossier: false` si spegne, ma `factory map` con la mappa presente lo riporta a true:
+# per spegnerlo in una misura si toglie la mappa o si rimette false dopo `factory map`.
+context_dossier: true
+
+# Tentativi automatici del task: valore tecnico letto dal runner.
+# La persona non deve alzarlo per ottenere una correzione.
+max_attempts: 3
+
+# Variabili d'ambiente per engine e verify (vincono su .env del progetto).
+# Il runner attiva già da solo: .venv/venv sul PATH, node_modules/.bin, e carica .env.
+# env:
+#   DATABASE_URL: postgresql://localhost/dev
+
+# Modelli del loop per engine (gli identificatori cambiano tra le CLI)
+engine_models:
+  opencode:
+    implement: openrouter/deepseek/deepseek-v4.1-flash
+    escalate: openrouter/deepseek/deepseek-v4.1-flash
+
+# Server MCP aggiuntivi per questo progetto (si sommano a quelli di fabbrica;
+# il runner li converte nel file/formato dichiarato dall'adapter scelto)
+mcp: {}
+
+# Nascita con lo strumento di prova in .factory/e2e-tool/, senza asset alla radice.
+e2e_tool_at_birth: true
+
+# Consegna su GitHub: ramo del lavoro spinto dopo ogni task e una richiesta in bozza per lavoro.
+integrations:
+  github:
+    pr_on_block: true

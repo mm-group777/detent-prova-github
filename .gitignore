@@ -1,0 +1,41 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.*
+!.env.example
+*.log
+# File di servizio dello stack avviato in background (skill scaffold): pid e log non entrano mai in Git.
+*.pid
+.DS_Store
+.factory/
+journal.jsonl
+graphify-out/
+# Le impostazioni locali di Claude Code (permessi scelti dalla persona sul proprio computer): non sono lavoro del progetto.
+.claude/settings.local.json
+
+# File di lavoro del ciclo di vita alla radice del progetto: PID e log non sono artefatti del prodotto.
+/.run/
+
+# Ambienti, build e prove locali: non sono lavoro dei task e il controllo del perimetro li attribuirebbe al task.
+# Valgono a qualunque profondità (api/.venv/, web/.next/); "coverage/" resta ancorato alla radice per non ignorare src/coverage/.
+.venv/
+__pycache__/
+.next/
+/coverage/
+
+# Playwright scrive sotto .playwright/ (skill playwright-e2e), con percorsi relativi alla cartella della configurazione
+# (frontend/.playwright/): per questo senza ancoraggio. Le altre righe coprono report, sessioni autenticate (.auth/
+# contiene cookie) e gli strumenti dell'agente.
+.playwright/
+playwright-report/
+blob-report/
+.auth/
+.playwright-cli/
+.playwright-mcp/
+
+# TEST-RESULTS/ contiene i rapporti dei collaudi e resta tracciato. Su macOS le maiuscole non contano e Git le ignora
+# anche nei pattern: si ignora il contenuto di test-results/ e si riammettono i soli file dei rapporti.
+/test-results/*
+!/TEST-RESULTS/.gitkeep
+!/TEST-RESULTS/*.md

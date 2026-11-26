@@ -1,0 +1,7 @@
+schema_version: 1
+status: ready
+criteria:
+  - { id: AC-001, objective: OBJ-001, given: un nome, when: chiamo saluto, then: ricevo il saluto con il nome }
+  - { id: AC-002, objective: OBJ-002, given: un elenco di numeri, when: chiamo somma, then: ricevo la somma }
+traceability: []
+test_levels: [unit]

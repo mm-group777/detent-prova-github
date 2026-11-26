@@ -1,0 +1,16 @@
+schema_version: 1
+status: ready
+branches:
+  main: main
+  development: dev
+  feature_prefix: feature/
+  test_prefix: test/
+feature_flow:
+  base: dev
+  merge_target: dev
+  require_macro_contract_approval: true
+release_flow:
+  source: dev
+  target: main
+  require_human_review: true
+  require_architecture_test: true

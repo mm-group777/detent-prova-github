@@ -1,0 +1,17 @@
+schema_version: 2
+id: MC-001-T01
+parent: MC-001
+progress_task_id: T1.1
+status: ready
+title: Funzione saluto con la sua prova
+objective: Funzione saluto con la sua prova.
+workstream: platform
+interface_operations: []
+alignment: { objectives: [OBJ-001], acceptance: [AC-001], domain_invariants: [INV-001] }
+dependencies: []
+change_scope:
+  allowed_paths: [src/**, test/**]
+  forbidden_paths: [DESIGN/**]
+verify:
+  command: 'node --test test/saluto.test.js'
+  evidence: [test-report, commit-sha]

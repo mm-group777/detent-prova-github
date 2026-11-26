@@ -1,0 +1,146 @@
+schema_version: 1
+status: ready
+system:
+  name: prova-consegna
+environments:
+  e2e:
+    kind: test
+    env_files: []
+    variables: []
+    secrets: {}
+lifecycle: {}
+instances:
+  app:
+    kind: cli
+    technology: node
+    depends_on: []
+    healthcheck:
+      type: command
+      command: node -e "process.exit(0)"
+connections: []
+infrastructure:
+  provider: local
+  region: local
+  infrastructure_as_code: { tool: none }
+  container_runtime: process
+  orchestration: none
+  networking: { network: loopback }
+  scaling: { autoscaling: false, min_replicas: 1, max_replicas: 1 }
+testing:
+  review_suite: e2e
+  suites:
+    e2e:
+      runner: command
+      command: node --test
+      instances: [ app ]
+      environment: e2e
+      timeout_seconds: 30
+blueprint:
+  revision: 1
+  status: ready
+  compiled_at: 2026-11-26T04:15:47.908Z
+  sources:
+    project:
+      path: blueprint/project.yaml
+      sha256: 4c4067939eb22d1081fa167fe69258edacbe980851e09d8023d5d249de3a5202
+    objectives:
+      path: blueprint/objectives.yaml
+      sha256: 56e57e30ff13e6938101da2b87b5423e22e54d4c9f462f7d5d5834863bee1149
+    domain:
+      path: blueprint/domain.yaml
+      sha256: d5f5a8cb0707ed59423df9953d03eb0a0a099b460c0a83f97a073f30b218f2d5
+    database:
+      path: blueprint/database.yaml
+      sha256: d495c57e4d3c329415ca2bb3eb47ffac072341c209668b238496b66a21212bcb
+    acceptance:
+      path: blueprint/acceptance.yaml
+      sha256: ecddbead2036939f18189b71a070879ca5b3213bdd82c77ef69f071bc56fad1f
+    deployment:
+      path: blueprint/deployment.yaml
+      sha256: 7e4941f03b9444cc45954588f2a383c8709942881c4f8aa7571f9f400cc7ced0
+    security:
+      path: blueprint/security.yaml
+      sha256: 79efcb825f27b475fed0862c2861709f4eb1288063ce02e9b738f2876f29c299
+    git:
+      path: blueprint/git.yaml
+      sha256: 7042e216be87bef2d1c2f94393d8bb3cfa1e67ab3c3f24e6c0498dc263e0f29c
+  overview:
+    main_branch: main
+    development_branch: dev
+    project_name: prova-consegna
+    objectives: 2
+    objective_ids:
+      - OBJ-001
+      - OBJ-002
+    objective_details:
+      - id: OBJ-001
+        title: Saluto
+        outcome: La funzione saluta per nome
+      - id: OBJ-002
+        title: Somma
+        outcome: La funzione somma un elenco di numeri
+    domain_entities: 0
+    domain_invariant_ids:
+      - INV-001
+    domain_invariant_details:
+      - id: INV-001
+        description: Il contratto approvato non cambia
+    database_tables: 0
+    database_engine: none
+    database_table_names: []
+    backend_modules: []
+    frontend_routes: []
+    frontend_flows: []
+    api_contracts: []
+    acceptance_criteria: 2
+    acceptance_criterion_ids:
+      - AC-001
+      - AC-002
+    acceptance_scenarios:
+      - id: AC-001
+        objective: OBJ-001
+        given: un nome
+        when: chiamo saluto
+        then: ricevo il saluto con il nome
+      - id: AC-002
+        objective: OBJ-002
+        given: un elenco di numeri
+        when: chiamo somma
+        then: ricevo la somma
+    deployment_environments:
+      - test
+    deployment_contract:
+      strategy: local-test
+      rollback: git-revert
+      production_approval: manual
+      observability: process-output
+    security_policies: 1
+    security_policy_details:
+      - Nessun segreto nel repository
+  artifacts: []
+  contracts:
+    - id: MC-001
+      block_id: onda-1
+      version: 1
+      status: ready
+      path: blueprint/contracts/MC-001.yaml
+      sha256: 73e98c1e182d28037709b0383849d5fbac56ca57d49990ed5a69a6e6bd276195
+    - id: MC-002
+      block_id: onda-2
+      version: 1
+      status: ready
+      path: blueprint/contracts/MC-002.yaml
+      sha256: 975a23e8b53f72d892b0dd2561455a4f27a338969ab784262f4c91ffae585914
+  tasks:
+    - id: MC-001-T01
+      parent: MC-001
+      progress_task_id: T1.1
+      status: ready
+      path: blueprint/tasks/MC-001-T01.yaml
+      sha256: 11082ca5734662e9c5d59addf588a99db571be08e9d5fadd238b268c06c11faa
+    - id: MC-002-T01
+      parent: MC-002
+      progress_task_id: T2.1
+      status: ready
+      path: blueprint/tasks/MC-002-T01.yaml
+      sha256: ac3ee2ee225e49a9c9cd6a73ec6a9f62be041aa33147cee8961d30caff44c8cb

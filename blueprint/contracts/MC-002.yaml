@@ -1,0 +1,20 @@
+schema_version: 1
+id: MC-002
+version: 1
+status: ready
+block_id: onda-2
+title: Somma
+outcome: { description: Somma }
+alignment: { objectives: [OBJ-002], acceptance: [AC-002], domain_invariants: [INV-001] }
+scope: { includes: [Somma], excludes: [Produzione] }
+architecture_impact: { instances: [app], connections: [] }
+database_impact:
+  required: false
+  changes: []
+  migration: { required: false, backwards_compatible: true, destructive: false }
+verification:
+  structural: [node -e "process.exit(0)"]
+  integration: []
+  e2e: []
+  regression: node --test
+git: { branch_type: feature, branch: feature/mc-002-somma }

@@ -1,0 +1,8 @@
+schema_version: 1
+revision: 1
+status: ready
+project:
+  id: "prova-consegna"
+  name: "prova-consegna"
+  description: Due funzioni JavaScript per la prova della consegna su GitHub.
+  owners: []

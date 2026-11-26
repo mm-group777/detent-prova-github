@@ -1,0 +1,7 @@
+schema_version: 1
+status: ready
+objectives:
+  - { id: OBJ-001, title: Saluto, outcome: La funzione saluta per nome }
+  - { id: OBJ-002, title: Somma, outcome: La funzione somma un elenco di numeri }
+non_goals: []
+success_metrics: []

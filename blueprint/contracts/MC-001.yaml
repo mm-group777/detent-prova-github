@@ -1,0 +1,20 @@
+schema_version: 1
+id: MC-001
+version: 1
+status: ready
+block_id: onda-1
+title: Saluto
+outcome: { description: Saluto }
+alignment: { objectives: [OBJ-001], acceptance: [AC-001], domain_invariants: [INV-001] }
+scope: { includes: [Saluto], excludes: [Produzione] }
+architecture_impact: { instances: [app], connections: [] }
+database_impact:
+  required: false
+  changes: []
+  migration: { required: false, backwards_compatible: true, destructive: false }
+verification:
+  structural: [node -e "process.exit(0)"]
+  integration: []
+  e2e: []
+  regression: node --test
+git: { branch_type: feature, branch: feature/mc-001-saluto }

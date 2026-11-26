@@ -1,0 +1,7 @@
+schema_version: 1
+status: ready
+environments: { test: { location: local } }
+strategy: local-test
+production_approval: manual
+rollback: git-revert
+observability: process-output

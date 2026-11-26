@@ -6,7 +6,7 @@
 
 ## Onda 1 - Saluto
 
-- [ ] **T1.1** Funzione saluto con la sua prova | deps: T0.1 | verify: `node --test test/saluto.test.js`
+- [/] **T1.1** Funzione saluto con la sua prova | deps: T0.1 | verify: `node --test test/saluto.test.js`
   - Crea src/saluto.js (ESM) con `export function saluto(nome)` che ritorna "Ciao, <nome>!"; se nome è vuoto o non è una stringa ritorna "Ciao!".
   - Crea test/saluto.test.js con node:test e node:assert che prova i due casi. Nessuna dipendenza.
 

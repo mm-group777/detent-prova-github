@@ -13,3 +13,5 @@ Memoria operativa curata e breve, letta a ogni sessione. Non è un log: conserva
 ## Convenzioni emerse
 
 - (vuoto)
+
+Nota di prova: commit innocuo per far ripreparare la consegna.

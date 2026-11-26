@@ -12,6 +12,6 @@
 
 ## Onda 2 - Somma
 
-- [ ] **T2.1** Funzione somma con la sua prova | deps: T1.1 | verify: `node --test test/somma.test.js`
+- [x] **T2.1** Funzione somma con la sua prova | deps: T1.1 | verify: `node --test test/somma.test.js`
   - Crea src/somma.js (ESM) con `export function somma(numeri)` che ritorna la somma di un array di numeri (0 se vuoto) e lancia TypeError se un elemento non è un numero finito.
   - Crea test/somma.test.js con node:test e node:assert che prova i tre casi. Nessuna dipendenza.
